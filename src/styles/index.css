@@ -1,0 +1,208 @@
+@import 'tailwindcss';
+@import '@fontsource-variable/fraunces/opsz.css';
+@import '@fontsource-variable/fraunces/opsz-italic.css';
+@import '@fontsource-variable/instrument-sans';
+@import '@fontsource/dm-mono/400.css';
+@import '@fontsource/dm-mono/500.css';
+
+/*
+ * PALETA — extraída das referências enviadas (cartelas "lotus pond" e "bamboo").
+ * Base: papel (oat/beige) + tinta (dark green). Acentos: cherry, rosy, midnight, moss, butter, olive.
+ * Moss e rosy são usados como superfície/decoração, nunca como texto sobre fundo claro (contraste baixo).
+ */
+@theme {
+  --color-ink: #0a3323; /* Dark green — texto e fundos escuros */
+  --color-ink-soft: #2c4a3d;
+  --color-midnight: #105666; /* Midnight green — More Invest, links secundários */
+  --color-moss: #839958; /* Moss green — superfícies, câmera */
+  --color-olive: #4f6815; /* Olive — Outros projetos */
+  --color-cherry: #76070d; /* Cherry — acento principal, CACO */
+  --color-rosy: #d3968c; /* Rosy brown — stickers, destaques sobre escuro */
+  --color-butter: #ffedab; /* Butter — marca-texto */
+  --color-beige: #f7f4d5; /* Beige — superfície clara alternativa */
+  --color-oat: #f0e6da; /* Oat — fundo principal (papel) */
+  --color-paper: #f7f1e8; /* Oat levemente clareado para cards */
+
+  --font-display: 'Fraunces Variable', 'Georgia', serif;
+  --font-sans: 'Instrument Sans Variable', system-ui, sans-serif;
+  --font-mono: 'DM Mono', ui-monospace, 'SFMono-Regular', monospace;
+
+  --radius-swatch: 1.25rem;
+  --ease-out-soft: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+    scroll-padding-top: 6rem;
+  }
+  body {
+    @apply bg-oat text-ink font-sans antialiased;
+    font-size: 1.0625rem;
+    line-height: 1.6;
+    text-rendering: optimizeLegibility;
+  }
+  ::selection {
+    background: var(--color-butter);
+    color: var(--color-cherry);
+  }
+  :focus-visible {
+    outline: 3px solid var(--color-cherry);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+  .on-dark :focus-visible,
+  .on-dark:focus-visible {
+    outline-color: var(--color-butter);
+  }
+  h1,
+  h2,
+  h3 {
+    font-family: var(--font-display);
+    letter-spacing: -0.02em;
+    line-height: 1.05;
+    text-wrap: balance;
+  }
+  p {
+    text-wrap: pretty;
+  }
+  img {
+    max-width: 100%;
+  }
+  dialog {
+    color: inherit;
+  }
+}
+
+@layer components {
+  .container-page {
+    width: 100%;
+    max-width: 78rem;
+    margin-inline: auto;
+    padding-inline: 1.25rem;
+  }
+  @media (min-width: 768px) {
+    .container-page {
+      padding-inline: 2.5rem;
+    }
+  }
+
+  /* Rótulo em mono, no estilo dos códigos hex das cartelas. */
+  .label-mono {
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  /* Marca-texto butter, usado em palavras-chave. */
+  .highlight {
+    background: linear-gradient(transparent 55%, var(--color-butter) 55%, var(--color-butter) 92%, transparent 92%);
+    padding-inline: 0.1em;
+  }
+
+  /* Texto corrido longo. */
+  .prose-body p + p {
+    margin-top: 1em;
+  }
+
+  /* Bordas pespontadas, como os patches bordados das referências. */
+  .stitch {
+    outline: 1.5px dashed currentColor;
+    outline-offset: -6px;
+  }
+
+  /* Letras recortadas (referência: alfabeto em colagem). */
+  .cutout {
+    display: inline-flex;
+    flex-wrap: wrap;
+    gap: 0.04em;
+    line-height: 1;
+  }
+  .cutout-letter {
+    display: inline-grid;
+    place-items: center;
+    min-width: 0.78em;
+    height: 1.08em;
+    padding-inline: 0.08em;
+    border-radius: 0.08em;
+    box-shadow: 0 0.04em 0 rgb(10 51 35 / 0.18);
+    transform: rotate(var(--r, 0deg)) translateY(var(--y, 0));
+    transition: transform 0.35s var(--ease-out-soft);
+  }
+  .cutout:hover .cutout-letter {
+    transform: rotate(calc(var(--r, 0deg) * -1)) translateY(0);
+  }
+
+  /* Placeholder listrado — deixa claro que é um espaço a substituir. */
+  .placeholder-art {
+    background-color: var(--ph-bg, var(--color-beige));
+    background-image: repeating-linear-gradient(
+      -45deg,
+      transparent 0 14px,
+      rgb(10 51 35 / 0.06) 14px 15px
+    );
+  }
+
+  /* Masonry por colunas: preserva a proporção original das fotos. */
+  .masonry {
+    columns: 1;
+    column-gap: 1rem;
+  }
+  @media (min-width: 640px) {
+    .masonry {
+      columns: 2;
+    }
+  }
+  @media (min-width: 1024px) {
+    .masonry {
+      columns: 3;
+    }
+  }
+  .masonry > * {
+    break-inside: avoid;
+    margin-bottom: 1rem;
+  }
+
+  .lightbox::backdrop {
+    background: rgb(6 30 20 / 0.94);
+  }
+  .menu-dialog::backdrop {
+    background: transparent;
+  }
+}
+
+@keyframes page-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+}
+.page-enter {
+  animation: page-in 0.45s var(--ease-out-soft) both;
+}
+
+@keyframes word-cycle {
+  0%, 20% { transform: translateY(0); }
+  25%, 45% { transform: translateY(-1.2em); }
+  50%, 70% { transform: translateY(-2.4em); }
+  75%, 95% { transform: translateY(-3.6em); }
+  100% { transform: translateY(-4.8em); }
+}
+@keyframes blink {
+  50% { opacity: 0.15; }
+}
+.rec-dot {
+  animation: blink 1.4s steps(2, jump-none) infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
