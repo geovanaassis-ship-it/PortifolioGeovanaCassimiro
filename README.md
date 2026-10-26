@@ -32,16 +32,12 @@ public/
   images/               ← todas as imagens (ver images/LEIA-ME.md)
   favicon.svg, og-image.png, apple-touch-icon.png
 src/
-  content/              ← TODO O CONTEÚDO EDITÁVEL ESTÁ AQUI
-    site.ts             ← nome, e-mail, LinkedIn, Instagram, WhatsApp, categorias, menu
+  content/              ← textos fixos do site (projetos e fotos ficam na área de admin, /abc)
+    site.ts             ← nome, e-mail, LinkedIn, Instagram, WhatsApp, categorias das abas, menu
     about.ts            ← frase de apresentação, textos do "Sobre mim", linha do tempo, competências, ferramentas
-    photography.ts      ← categorias e ensaios de fotografia/audiovisual
-    projects/
-      more-invest.ts    ← projetos da More Invest
-      caco.ts           ← projetos do CACO
-      c360.ts           ← projetos do Portal C360
-      outros.ts         ← outros projetos
+    photography.ts      ← vídeos exibidos abaixo da galeria
     types.ts            ← descrição de todos os campos disponíveis
+  lib/                  ← carregamento de projetos e galeria, formato dos dados
   components/           ← peças visuais reutilizáveis (cards, galeria, lightbox, selo, bolas de sinuca…)
   pages/                ← uma página por aba (os textos de introdução de cada aba ficam aqui)
   styles/index.css      ← paleta, fontes e estilos globais
