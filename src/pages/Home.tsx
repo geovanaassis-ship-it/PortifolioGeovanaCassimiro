@@ -73,7 +73,7 @@ export function Home() {
 
       <section className="container-page pt-20">
         <div className="on-dark relative overflow-hidden rounded-[2rem] bg-cherry px-6 py-14 text-butter sm:px-12">
-          <WaxSeal size={130} tone="gold" motif="gc" rotate={12} className="absolute -right-4 -top-6 hidden sm:block" />
+          <WaxSeal size={130} rotate={12} className="absolute -right-4 -top-6 hidden sm:block" />
           <p className="label-mono text-rosy"><CodeMark code="#06 · Contato" size={30} /></p>
           <h2 className="mt-4 max-w-2xl text-[clamp(2rem,4.6vw,3.4rem)] font-medium">
             Tem um projeto, uma vaga ou uma ideia? <span className="italic">Vamos conversar.</span>

@@ -1,3 +1,5 @@
+import type { ToolId } from '../components/ui/tool-logos'
+
 /**
  * PÁGINA "SOBRE MIM"
  * Textos em primeira pessoa. Edite livremente — separe parágrafos com itens do array.
@@ -19,7 +21,7 @@ export const story: { title: string; paragraphs: string[] }[] = [
   {
     title: 'Comunicação em um ambiente que exige precisão',
     paragraphs: [
-      'Hoje estou no 6º semestre de Publicidade e Propaganda e sou estagiária de marketing na More Invest, empresa do mercado financeiro. É um contexto em que cada palavra pesa: a comunicação precisa ser clara para quem está começando e correta para quem já conhece o assunto. Para acompanhar essa linguagem, estou cursando a trilha CPA-Anbima.',
+      'Hoje estou no 7º semestre de Publicidade e Propaganda e sou estagiária de marketing na More Invest, empresa do mercado financeiro. É um contexto em que cada palavra pesa: a comunicação precisa ser clara para quem está começando e correta para quem já conhece o assunto. Para acompanhar essa linguagem, estou cursando a trilha CPA-Anbima.',
       'Antes disso, passei pelo marketing do Colégio Arbos, criando campanhas e materiais de comunicação institucional para públicos interno e externo, além de captar e editar conteúdo para as redes sociais.',
     ],
   },
@@ -46,8 +48,7 @@ export const timeline: { period: string; title: string; place: string; note?: st
   { period: 'Em andamento', title: 'Fotógrafa e videomaker freelancer', place: 'Autônoma' },
   { period: 'Em andamento', title: 'Voluntária — fotografia e organização', place: 'Hamburgada do Bem' },
   { period: 'fev/2024 – jul/2025', title: 'Estagiária de Marketing', place: 'Colégio Arbos' },
-  { period: 'abr/2023 – out/2023', title: 'Atendente Comercial', place: 'BGA Certificadora' },
-  { period: 'até jul/2027', title: 'Publicidade e Propaganda', place: 'USCS', note: 'Cursando o 6º semestre' },
+  { period: 'até jul/2027', title: 'Publicidade e Propaganda', place: 'USCS', note: 'Cursando o 7º semestre' },
   { period: 'concluído em jan/2023', title: 'Tecnólogo em Análise e Desenvolvimento de Sistemas', place: 'Universidade São Judas Tadeu' },
 ]
 
@@ -75,5 +76,5 @@ export const skills: { group: string; items: string[] }[] = [
   },
 ]
 
-/** Ferramentas que você realmente usa. */
-export const tools: string[] = ['Canva', 'PowerPoint', 'Adobe (básico)', 'CapCut']
+/** Ferramentas que você realmente usa, exibidas como logos (ids em components/ui/tool-logos.ts). */
+export const tools: ToolId[] = ['canva', 'powerpoint', 'adobe', 'capcut', 'claude', 'chatgpt', 'gemini']

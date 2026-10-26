@@ -1,6 +1,0 @@
-Coloque aqui o currículo em PDF com exatamente este nome:
-
-  geovana-cassimiro-curriculo.pdf
-
-O botão "Ver currículo" aparece sozinho no site quando o arquivo existe.
-Para usar outro nome, altere resumePath em src/content/site.ts.

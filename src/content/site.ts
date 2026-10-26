@@ -2,7 +2,7 @@ import type { Category, SectionId } from './types'
 
 /**
  * CONFIGURAÇÕES GERAIS DO SITE
- * Links, contatos, currículo e textos curtos de apresentação.
+ * Links, contatos e textos curtos de apresentação.
  * Campos com valor null ficam ocultos no site (ou aparecem como "a configurar"
  * enquanto showPlaceholders estiver true).
  */
@@ -24,10 +24,10 @@ export const site = {
   email: 'geovana.photomidias@gmail.com' as string | null,
 
   /**
-   * Telefone / WhatsApp. `display` é como aparece no site; `e164` é o número
-   * completo com DDI (só dígitos), usado nos links de ligação e WhatsApp.
+   * WhatsApp: número completo com DDI, só dígitos. O número não aparece escrito no
+   * site; ele só é usado no botão "Chamar no WhatsApp" (link wa.me).
    */
-  phone: { display: '(11) 95217-7816', e164: '5511952177816' } as { display: string; e164: string } | null,
+  whatsapp: '5511952177816' as string | null,
 
   socials: {
     /** URL completa do perfil. */
@@ -38,18 +38,15 @@ export const site = {
     others: [] as { label: string; url: string }[],
   },
 
-  /**
-   * Currículo em PDF. Coloque o arquivo em public/curriculo/ com exatamente este nome.
-   * O botão só aparece quando o arquivo existe de verdade (o site verifica sozinho).
-   */
-  resumePath: '/curriculo/geovana-cassimiro-curriculo.pdf',
-
   /** Retrato (opcional) exibido na página Sobre. Ex.: { src: '/images/perfil/retrato.webp', alt: '...' } */
   portrait: null as { src: string; alt: string } | null,
 
   /** Filtros de categoria só aparecem a partir desta quantidade de projetos na seção. */
   minProjectsForFilters: 4,
 }
+
+/** Link do botão de WhatsApp (sem expor o número na página). */
+export const whatsappUrl = site.whatsapp ? `https://wa.me/${site.whatsapp}` : null
 
 /* ---------- Seções e categorias ---------- */
 

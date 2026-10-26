@@ -6,9 +6,8 @@ Site-portfólio de Publicidade e Comunicação. React 19 + TypeScript + Vite + T
 - [Onde fica cada coisa](#onde-fica-cada-coisa)
 - [Adicionar um projeto](#adicionar-um-projeto)
 - [Adicionar fotos e vídeos](#adicionar-fotos-e-vídeos)
-- [Trocar textos, links, currículo e imagens](#trocar-textos-links-currículo-e-imagens)
+- [Trocar textos, links e imagens](#trocar-textos-links-e-imagens)
 - [Publicar na internet](#publicar-na-internet)
-- [Formulário de contato (opcional)](#formulário-de-contato-opcional)
 - [Checklist antes de divulgar](#checklist-antes-de-divulgar)
 - [Direção de arte](#direção-de-arte)
 
@@ -30,12 +29,11 @@ npm run check:content  # lista tudo que ainda está marcado como [A PREENCHER]
 
 ```
 public/
-  curriculo/            ← PDF do currículo
   images/               ← todas as imagens (ver images/LEIA-ME.md)
   favicon.svg, og-image.png, apple-touch-icon.png
 src/
   content/              ← TODO O CONTEÚDO EDITÁVEL ESTÁ AQUI
-    site.ts             ← nome, e-mail, LinkedIn, Instagram, currículo, categorias, menu
+    site.ts             ← nome, e-mail, LinkedIn, Instagram, WhatsApp, categorias, menu
     about.ts            ← frase de apresentação, textos do "Sobre mim", linha do tempo, competências, ferramentas
     photography.ts      ← categorias e ensaios de fotografia/audiovisual
     projects/
@@ -153,12 +151,11 @@ Em `photoSeries`, em `src/content/photography.ts`:
 - Reels e TikToks não têm incorporação confiável: adicione como `links`.
 - Categorias (`photoCategories`) podem ser renomeadas, removidas ou reordenadas.
 
-## Trocar textos, links, currículo e imagens
+## Trocar textos, links e imagens
 
 | O quê | Onde |
 |---|---|
 | E-mail, LinkedIn, Instagram, outros canais | `src/content/site.ts` |
-| Currículo | coloque `geovana-cassimiro-curriculo.pdf` em `public/curriculo/`. O botão aparece sozinho. |
 | Retrato da página Sobre | imagem em `public/images/perfil/` + `portrait` em `site.ts` |
 | Frase de apresentação, textos do Sobre, linha do tempo, competências, ferramentas | `src/content/about.ts` |
 | Texto de introdução de cada aba | o arquivo da página em `src/pages/` |
@@ -181,22 +178,11 @@ O arquivo `vercel.json` já faz as rotas (`/sobre`, `/more-invest/...`) funciona
 
 **Sobre a prévia de compartilhamento:** LinkedIn e WhatsApp leem as tags do `index.html`, que valem para o site todo (título, descrição e `og-image.png`). Os títulos de cada página mudam no navegador e no Google, mas a prévia em redes sociais é a mesma para todos os links.
 
-## Formulário de contato (opcional)
-
-Por padrão, a página de contato mostra e-mail (com botão de copiar) e redes — **sem formulário**, para não exibir um formulário que não envia nada.
-
-Para ativar um formulário que envia de verdade, usando o [Formspree](https://formspree.io) (plano gratuito: 50 mensagens/mês):
-
-1. Crie uma conta e um formulário; copie o ID (o trecho final do endpoint, ex.: `xyzabcd`).
-2. Defina a variável `VITE_FORMSPREE_ID=xyzabcd` na Vercel (Settings → Environment Variables) e faça um novo deploy. Para testar localmente, crie um arquivo `.env.local` com a mesma linha.
-3. Confirme o primeiro envio pelo e-mail que o Formspree mandar.
-
 ## Checklist antes de divulgar
 
 Rode `npm run check:content` — ele lista tudo que ainda falta. Em resumo:
 
 - [ ] E-mail e LinkedIn em `site.ts`
-- [ ] Currículo em PDF em `public/curriculo/`
 - [ ] Datas, instituição da graduação em ADS e ferramentas em `about.ts`
 - [ ] Projetos reais nas seções; itens de exemplo apagados ou com `placeholder: false`
 - [ ] Participação confirmada nos formatos do Portal C360 (`c360.ts`) — apague os que não forem seus

@@ -25,7 +25,6 @@ if (/email: null/.test(site)) pending.push('E-mail profissional (site.ts → ema
 if (/linkedin: null/.test(site)) pending.push('LinkedIn (site.ts → socials.linkedin)')
 if (/portrait: null/.test(site)) pending.push('Retrato opcional (site.ts → portrait)')
 if (/showPlaceholders: true/.test(site)) pending.push('showPlaceholders ainda está true (exemplos visíveis no site)')
-if (!existsSync('public/curriculo/geovana-cassimiro-curriculo.pdf')) pending.push('Currículo: public/curriculo/geovana-cassimiro-curriculo.pdf')
 const placeholders = files.reduce((n, f) => n + (readFileSync(f, 'utf8').match(/placeholder: true/g)?.length ?? 0), 0)
 if (placeholders) pending.push(`${placeholders} item(ns) com placeholder: true`)
 
