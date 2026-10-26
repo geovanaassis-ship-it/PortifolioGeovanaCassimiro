@@ -7,7 +7,8 @@ import { EmptyState } from '../ui/bits'
 import { ProjectCard } from './ProjectCard'
 
 interface Props {
-  projects: Project[]
+  /** null enquanto os projetos carregam. */
+  projects: Project[] | null
   categories: Category[]
   label: string
   emptyTitle?: string
@@ -16,15 +17,17 @@ interface Props {
 /** Grade de projetos com filtro por categoria (aparece só quando há projetos suficientes). */
 export function ProjectList({ projects, categories, label, emptyTitle = 'Projetos em curadoria' }: Props) {
   const [filter, setFilter] = useState('all')
-  const cats = useMemo(() => usedCategories(categories, projects), [categories, projects])
+  const list = useMemo(() => projects ?? [], [projects])
+  const cats = useMemo(() => usedCategories(categories, list), [categories, list])
   const counts = useMemo(
-    () => projects.reduce<Record<string, number>>((acc, p) => ({ ...acc, [p.category]: (acc[p.category] ?? 0) + 1 }), {}),
-    [projects],
+    () => list.reduce<Record<string, number>>((acc, p) => ({ ...acc, [p.category]: (acc[p.category] ?? 0) + 1 }), {}),
+    [list],
   )
-  const showFilters = projects.length >= site.minProjectsForFilters && cats.length > 1
-  const shown = filter === 'all' ? projects : projects.filter((p) => p.category === filter)
+  const showFilters = list.length >= site.minProjectsForFilters && cats.length > 1
+  const shown = filter === 'all' ? list : list.filter((p) => p.category === filter)
 
-  if (!projects.length) {
+  if (!projects) return <p className="label-mono py-10 text-center text-ink/55">Carregando projetos…</p>
+  if (!list.length) {
     return <EmptyState title={emptyTitle}>Os trabalhos desta seção estão sendo selecionados e chegam em breve.</EmptyState>
   }
 

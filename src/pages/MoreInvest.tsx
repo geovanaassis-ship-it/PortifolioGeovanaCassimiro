@@ -3,8 +3,10 @@ import { PageHeader } from '../components/ui/PageHeader'
 import { Seo } from '../components/ui/Seo'
 import { sections } from '../content/site'
 import { projectsBySection } from '../lib/content'
+import { useProjects } from '../lib/projects'
 
 export function MoreInvest() {
+  const projects = useProjects()
   const meta = sections['more-invest']
   return (
     <>
@@ -29,7 +31,7 @@ export function MoreInvest() {
       </PageHeader>
 
       <section className="container-page py-14 md:py-20" aria-label="Projetos More Invest">
-        <ProjectList projects={projectsBySection('more-invest')} categories={meta.categories} label="projetos da More Invest" />
+        <ProjectList projects={projects && projectsBySection(projects, 'more-invest')} categories={meta.categories} label="projetos da More Invest" />
         <p className="mt-12 max-w-2xl border-l-2 border-midnight pl-4 text-sm text-ink/65">
           Todos os materiais exibidos já foram publicados pela empresa. Informações internas, de clientes ou de investidores não fazem parte deste portfólio.
         </p>

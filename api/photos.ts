@@ -3,9 +3,10 @@ import { isAuthed, unauthorized } from './_lib/auth.js'
 import { saveFile } from './_lib/store.js'
 
 /**
- * POST (admin): recebe uma foto já reduzida pelo navegador — campos "full" e "thumb"
- * (webp ou jpeg) e "niche" — e devolve os endereços salvos. A foto só entra na
- * galeria depois que o admin salva os dados (PUT /api/gallery).
+ * POST (admin): recebe uma imagem já reduzida pelo navegador — campos "full" e "thumb"
+ * (webp ou jpeg), "group" ("galeria" ou "projetos") e "niche" (subpasta: nicho ou aba) —
+ * e devolve os endereços salvos. A imagem só passa a valer depois que o admin salva os
+ * dados (PUT /api/gallery ou /api/projects).
  */
 const MAX_BYTES = 4 * 1024 * 1024
 const TYPES = new Set(['image/webp', 'image/jpeg'])
@@ -16,7 +17,8 @@ export async function POST(request: Request) {
   const full = form?.get('full')
   const thumb = form?.get('thumb')
   const niche = String(form?.get('niche') ?? '')
-  if (!(full instanceof Blob) || !(thumb instanceof Blob) || !/^[a-z0-9-]{1,80}$/.test(niche)) {
+  const group = String(form?.get('group') ?? 'galeria')
+  if (!(full instanceof Blob) || !(thumb instanceof Blob) || !/^[a-z0-9-]{1,80}$/.test(niche) || !['galeria', 'projetos'].includes(group)) {
     return Response.json({ error: 'Envio incompleto.' }, { status: 400 })
   }
   for (const f of [full, thumb]) {
@@ -26,8 +28,8 @@ export async function POST(request: Request) {
   const id = randomUUID().slice(0, 8)
   const ext = full.type === 'image/webp' ? 'webp' : 'jpg'
   const [src, thumbUrl] = await Promise.all([
-    saveFile(`galeria/fotos/${niche}/${id}.${ext}`, full, full.type),
-    saveFile(`galeria/fotos/${niche}/${id}-thumb.${ext}`, thumb, thumb.type),
+    saveFile(`${group}/fotos/${niche}/${id}.${ext}`, full, full.type),
+    saveFile(`${group}/fotos/${niche}/${id}-thumb.${ext}`, thumb, thumb.type),
   ])
   return Response.json({ id, src, thumb: thumbUrl })
 }

@@ -5,6 +5,7 @@ import { StarSticker } from '../components/ui/StarSticker'
 import { CodeMark } from '../components/ui/PoolBall'
 import { sections } from '../content/site'
 import { projectsBySection } from '../lib/content'
+import { useProjects } from '../lib/projects'
 
 const fronts = [
   {
@@ -32,6 +33,7 @@ const fronts = [
 ] as const
 
 export function CacoC360() {
+  const projects = useProjects()
   return (
     <>
       <Seo title="CACO e Portal C360" description="Atuação de Geovana Cassimiro como Head de Conteúdo do CACO (USCS) e em projetos editoriais e criativos do Portal C360." />
@@ -75,7 +77,7 @@ export function CacoC360() {
             </div>
           </div>
           <div className="py-10">
-            <ProjectList projects={projectsBySection(f.section.id)} categories={f.section.categories} label={`projetos do ${f.title}`} />
+            <ProjectList projects={projects && projectsBySection(projects, f.section.id)} categories={f.section.categories} label={`projetos do ${f.title}`} />
           </div>
         </section>
       ))}

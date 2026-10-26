@@ -4,11 +4,12 @@ import { Icon } from '../components/ui/Icon'
 import { Seo } from '../components/ui/Seo'
 import { formatDate, loadGallery } from '../lib/gallery'
 import { slugify, type Gallery, type GalleryNiche, type GalleryPhoto } from '../lib/gallery-types'
-import { photoDate, resizePhoto } from '../lib/image-resize'
+import { ProjectsPanel } from './admin/ProjectsPanel'
+import { IconButton, Notice, field, uploadImage } from './admin/shared'
 
 /**
  * ÁREA DE ADMIN (/abc)
- * Envio e organização das fotos da galeria. Protegida pela senha ADMIN_PASSWORD
+ * Galeria de fotos e projetos das abas (More Invest, CACO, C360, Outros). Protegida pela senha ADMIN_PASSWORD
  * (configurada na Vercel). Não aparece no menu nem nos buscadores.
  */
 type Session = 'loading' | 'out' | 'in' | 'unconfigured' | 'offline'
@@ -31,7 +32,7 @@ export function Admin() {
       <Seo title="Admin" noindex />
       <p className="label-mono text-olive">Área restrita</p>
       <h1 className="mt-3 text-[clamp(2.2rem,5vw,3.6rem)] font-medium">
-        Galeria <span className="italic text-cherry">— admin</span>
+        Painel <span className="italic text-cherry">— admin</span>
       </h1>
 
       <div className="mt-10">
@@ -47,18 +48,47 @@ export function Admin() {
           </Notice>
         )}
         {session === 'out' && <Login onDone={() => setSession('in')} />}
-        {session === 'in' && <Panel onLogout={() => setSession('out')} />}
+        {session === 'in' && <Tabs onLogout={() => setSession('out')} />}
       </div>
     </div>
   )
 }
 
-function Notice({ children, tone = 'info' }: { children: React.ReactNode; tone?: 'info' | 'error' | 'ok' }) {
-  const color = tone === 'error' ? 'border-cherry/40 bg-cherry/5 text-cherry' : tone === 'ok' ? 'border-moss/50 bg-moss/10 text-ink' : 'border-ink/20 bg-beige text-ink/80'
-  return <div className={`rounded-xl border px-5 py-4 ${color}`} role={tone === 'error' ? 'alert' : 'status'}>{children}</div>
-}
 
-const field = 'w-full rounded-lg border-[1.5px] border-ink/20 bg-white/70 px-3 py-2 text-ink focus:border-ink focus:outline-none'
+/* ---------- Abas do painel ---------- */
+
+/** Galeria e Projetos ficam montados juntos para não perder o que está sendo editado ao trocar de aba. */
+function Tabs({ onLogout }: { onLogout: () => void }) {
+  const [tab, setTab] = useState<'projetos' | 'galeria'>('projetos')
+  const tabs = [
+    { id: 'projetos', label: 'Projetos' },
+    { id: 'galeria', label: 'Galeria de fotos' },
+  ] as const
+  return (
+    <>
+      <div role="tablist" aria-label="Seções do painel" className="mb-10 flex flex-wrap gap-2">
+        {tabs.map((t) => (
+          <button
+            key={t.id}
+            type="button"
+            role="tab"
+            aria-selected={tab === t.id}
+            onClick={() => setTab(t.id)}
+            className={`rounded-full border-[1.5px] px-5 py-2.5 font-semibold transition-colors ${tab === t.id ? 'border-ink bg-ink text-oat' : 'border-ink/25 hover:border-ink'}`}
+          >
+            {t.label}
+          </button>
+        ))}
+      </div>
+      <div hidden={tab !== 'projetos'}>
+        <ProjectsPanel onLogout={onLogout} />
+      </div>
+      <div hidden={tab !== 'galeria'}>
+        <Panel onLogout={onLogout} />
+      </div>
+    </>
+  )
+}
 
 /* ---------- Login ---------- */
 
@@ -193,15 +223,8 @@ function Upload({ gallery, setGallery, onUploaded }: { gallery: Gallery; setGall
     for (const [i, file] of images.entries()) {
       update(i, { status: 'working' })
       try {
-        const [resized, date] = await Promise.all([resizePhoto(file), photoDate(file)])
-        const form = new FormData()
-        form.append('full', resized.full, 'full')
-        form.append('thumb', resized.thumb, 'thumb')
-        form.append('niche', niche)
-        const r = await fetch('/api/photos', { method: 'POST', body: form })
-        const body = (await r.json().catch(() => ({}))) as { id?: string; src?: string; thumb?: string; error?: string }
-        if (!r.ok || !body.src || !body.thumb) throw new Error(body.error ?? `Erro ${r.status}`)
-        added.push({ id: body.id!, src: body.src, thumb: body.thumb, width: resized.width, height: resized.height, niche, date })
+        const up = await uploadImage(file, 'galeria', niche)
+        added.push({ id: up.id, src: up.src, thumb: up.thumb, width: up.width, height: up.height, niche, date: up.date })
         update(i, { status: 'done' })
       } catch (err) {
         update(i, { status: 'error', message: (err as Error).message })
@@ -418,22 +441,5 @@ function Photos({ gallery, setGallery }: { gallery: Gallery; setGallery: (g: Gal
         ))}
       </ul>
     </section>
-  )
-}
-
-function IconButton({ label, icon, onClick, disabled, rotate }: { label: string; icon: 'chevronLeft' | 'chevronRight' | 'arrowLeft' | 'arrowRight' | 'close'; onClick: () => void; disabled?: boolean; rotate?: boolean }) {
-  return (
-    <button
-      type="button"
-      onClick={onClick}
-      disabled={disabled}
-      title={label}
-      aria-label={label}
-      className="grid h-10 w-10 place-items-center rounded-full border-[1.5px] border-ink/20 hover:border-ink disabled:opacity-30 disabled:hover:border-ink/20"
-    >
-      <span className={rotate ? 'rotate-90' : ''}>
-        <Icon name={icon} size={18} />
-      </span>
-    </button>
   )
 }

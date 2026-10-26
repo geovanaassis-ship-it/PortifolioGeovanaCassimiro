@@ -2,8 +2,6 @@ import { existsSync } from 'node:fs'
 import { defineConfig, loadEnv, type Plugin } from 'vite'
 import react from '@vitejs/plugin-react'
 import tailwindcss from '@tailwindcss/vite'
-import { allProjects } from './src/content/projects'
-import { site } from './src/content/site'
 
 /** Gera sitemap.xml e robots.txt no build a partir das rotas e projetos cadastrados. */
 function seoFiles(siteUrl: string): Plugin {
@@ -12,7 +10,6 @@ function seoFiles(siteUrl: string): Plugin {
     apply: 'build',
     generateBundle() {
       const base = siteUrl.replace(/\/$/, '')
-      const visible = allProjects.filter((p) => site.showPlaceholders || !p.placeholder)
       const paths = [
         '/',
         '/sobre',
@@ -21,7 +18,6 @@ function seoFiles(siteUrl: string): Plugin {
         '/fotografia',
         '/outros-projetos',
         '/contato',
-        ...visible.filter((p) => p.hasDetail).map((p) => p.path),
       ]
       const urls = paths.map((p) => `  <url><loc>${base}${p}</loc></url>`).join('\n')
       this.emitFile({

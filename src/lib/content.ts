@@ -1,20 +1,17 @@
-import { allProjects } from '../content/projects'
 import { photoCategories, photoSeries } from '../content/photography'
 import { sections, site } from '../content/site'
 import type { Category, Project, SectionId } from '../content/types'
 
 const isVisible = (item: { placeholder?: boolean }) => site.showPlaceholders || !item.placeholder
 
-export const visibleProjects = allProjects.filter(isVisible)
+/* Os projetos vêm da área de admin (ver lib/projects.ts → useProjects). */
 
-export const projectsBySection = (section: SectionId) => visibleProjects.filter((p) => p.section === section)
+export const projectsBySection = (projects: Project[], section: SectionId) => projects.filter((p) => p.section === section)
 
-export const featuredProjects = () =>
-  visibleProjects
-    .filter((p) => p.featured)
-    .sort((a, b) => (a.featuredOrder ?? 99) - (b.featuredOrder ?? 99))
+export const featuredProjects = (projects: Project[]) =>
+  projects.filter((p) => p.featured).sort((a, b) => (a.featuredOrder ?? 99) - (b.featuredOrder ?? 99))
 
-export const findProjectByPath = (path: string) => visibleProjects.find((p) => p.path === path.replace(/\/$/, ''))
+export const findProjectByPath = (projects: Project[], path: string) => projects.find((p) => p.path === path.replace(/\/$/, ''))
 
 /** Categorias da seção que realmente têm projetos, na ordem definida em site.ts. */
 export function usedCategories(categories: Category[], items: { category: string }[]) {
@@ -29,22 +26,14 @@ export const visibleSeries = photoSeries.filter(isVisible)
 export const photoCategoryLabel = (id: string) => photoCategories.find((c) => c.id === id)?.label ?? id
 
 /** Projeto anterior e seguinte dentro da mesma seção (para navegação na página do projeto). */
-export function siblings(project: Project) {
-  const list = visibleProjects.filter((p) => p.section === project.section && p.hasDetail)
+export function siblings(projects: Project[], project: Project) {
+  const list = projects.filter((p) => p.section === project.section && p.hasDetail)
   const i = list.findIndex((p) => p.path === project.path)
   return { prev: i > 0 ? list[i - 1] : undefined, next: i >= 0 && i < list.length - 1 ? list[i + 1] : undefined }
 }
 
-/** Aviso no console (só em desenvolvimento) para categorias ou slugs inválidos. */
+/** Aviso no console (só em desenvolvimento) para categorias de fotografia inválidas. */
 if (import.meta.env.DEV) {
-  const paths = new Set<string>()
-  for (const p of allProjects) {
-    if (paths.has(p.path)) console.warn(`[conteúdo] Slug repetido: ${p.path}`)
-    paths.add(p.path)
-    if (!/^[a-z0-9-]+$/.test(p.slug)) console.warn(`[conteúdo] Slug inválido em "${p.title}": use letras minúsculas, números e hífens.`)
-    if (!sections[p.section].categories.some((c) => c.id === p.category))
-      console.warn(`[conteúdo] Categoria "${p.category}" não existe na seção ${p.section} (projeto "${p.title}").`)
-  }
   for (const s of photoSeries)
     if (!photoCategories.some((c) => c.id === s.category))
       console.warn(`[conteúdo] Categoria de fotografia "${s.category}" não existe (ensaio "${s.title}").`)

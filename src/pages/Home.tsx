@@ -8,6 +8,7 @@ import { CodeMark } from '../components/ui/PoolBall'
 import { WaxSeal } from '../components/ui/WaxSeal'
 import { EmptyState, SectionLabel } from '../components/ui/bits'
 import { featuredProjects } from '../lib/content'
+import { useProjects } from '../lib/projects'
 
 const now = [
   { where: 'More Invest', what: 'Marketing no mercado financeiro' },
@@ -17,7 +18,8 @@ const now = [
 ]
 
 export function Home() {
-  const featured = featuredProjects().slice(0, 6)
+  const projects = useProjects()
+  const featured = projects ? featuredProjects(projects).slice(0, 6) : []
   return (
     <>
       <Seo />
@@ -44,7 +46,9 @@ export function Home() {
           </div>
           <p className="max-w-sm text-ink/70">Uma amostra do que faço em marketing, conteúdo e produção visual. Cada projeto mostra o contexto e a minha parte nele.</p>
         </div>
-        {featured.length ? (
+        {!projects ? (
+          <p className="label-mono py-10 text-center text-ink/55">Carregando projetos…</p>
+        ) : featured.length ? (
           <ul className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
             {featured.map((p, i) => (
               <li key={p.path}>

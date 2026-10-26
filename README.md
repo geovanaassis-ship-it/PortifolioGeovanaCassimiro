@@ -49,61 +49,21 @@ src/
 
 ## Adicionar um projeto
 
-1. Coloque as imagens em `public/images/<seção>/` (ex.: `public/images/more-invest/`).
-2. Abra o arquivo da seção em `src/content/projects/` e adicione um bloco à lista:
+Os projetos das abas **More Invest**, **CACO e C360** e **Outros projetos** são gerenciados na
+área de admin (`/abc` → aba **Projetos**):
 
-**Projeto simples** (um post, uma peça) — sem página própria, o card leva direto ao link original:
+1. Escolha a aba do site e clique em **Novo projeto**.
+2. Preencha título, categoria, ano, resumo e (opcional) sua participação. Marque
+   **Trabalhos em destaque** para o projeto aparecer na página inicial.
+3. Envie a **capa** (recortada em 4:3 no card).
+4. Opcional — **página do projeto**: o que você fez, contexto, objetivo, desafio, estratégia,
+   processo, resultado, ferramentas, entregáveis, imagens, vídeos do YouTube/Vimeo e links.
+   Com qualquer um desses campos, o projeto ganha página própria; sem eles, o card leva ao
+   primeiro link.
+5. **Salvar projeto** — já aparece no site.
 
-```ts
-{
-  slug: 'post-tesouro-direto',
-  title: 'Carrossel: o que é o Tesouro Direto',
-  category: 'redes-sociais',
-  summary: 'Carrossel explicando o produto para quem está começando a investir.',
-  year: '2025',
-  cover: { src: '/images/more-invest/tesouro-capa.webp', alt: 'Primeiro card do carrossel com o título…' },
-  links: [{ label: 'Instagram', url: 'https://www.instagram.com/p/XXXXX/' }],
-},
-```
-
-**Projeto completo** — preencha os campos que fizerem sentido; o site cria a página `/more-invest/<slug>` sozinho:
-
-```ts
-{
-  slug: 'campanha-x',
-  title: 'Campanha X',
-  category: 'campanhas',
-  summary: 'Resumo em uma ou duas frases.',
-  year: '2025',
-  area: 'Campanhas e projetos especiais',
-  featured: true,            // aparece em "Trabalhos em destaque" na página inicial
-  featuredOrder: 1,          // ordem entre os destaques
-  cover: { src: '/images/more-invest/campanha-x-capa.webp', alt: '…' },
-  role: 'Redação e direção de arte',
-  responsibilities: ['Roteiro dos vídeos', 'Redação das legendas'],
-  collaborators: [{ name: 'Fulana', role: 'Design' }],   // trabalhos em grupo
-  context: 'Parágrafo.\n\nOutro parágrafo.',
-  objective: '…',
-  challenge: '…',
-  strategy: '…',
-  process: '…',
-  result: { text: 'Só resultados comprovados.', source: 'Relatório do Instagram, mar/2025' },
-  tools: ['Figma', 'Premiere'],
-  deliverables: ['3 vídeos', '6 cards'],
-  tags: ['finanças'],
-  gallery: [
-    { src: '/images/more-invest/campanha-x-1.webp', alt: '…', width: 1080, height: 1350, caption: 'Legenda opcional' },
-    { kind: 'video', provider: 'youtube', source: 'ID_DO_VIDEO', title: 'Vídeo da campanha' },
-  ],
-  links: [{ label: 'Ver no LinkedIn', url: 'https://…' }],
-},
-```
-
-Regras rápidas:
-- `slug`: só letras minúsculas, números e hífens; não pode repetir (CACO e C360 dividem o mesmo endereço, então os slugs também não podem se repetir entre eles).
-- `category`: precisa ser um dos `id` listados em `sections` dentro de `src/content/site.ts`. Para criar/renomear categorias, edite lá.
-- Os filtros por categoria aparecem sozinhos quando a seção tiver 4 projetos ou mais (ajuste em `minProjectsForFilters`).
-- Em modo de desenvolvimento, o console do navegador avisa sobre slug repetido ou categoria inexistente.
+Por trás: os dados ficam no Vercel Blob (`projetos/dados-*.json`, com as 10 últimas versões
+guardadas) e as imagens em `projetos/fotos/<aba>/`. O formato está em `src/lib/projects-data.ts`.
 
 ## Adicionar fotos e vídeos
 
