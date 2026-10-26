@@ -3,6 +3,9 @@ import type { MediaImage } from '../../content/types'
 import { Icon } from './Icon'
 import { StarSticker } from './StarSticker'
 
+/** Largura real da miniatura (lado maior de 900 px, sem ampliar). */
+const thumbWidth = (w: number, h: number) => (Math.max(w, h) <= 900 ? w : Math.round((w * 900) / Math.max(w, h)))
+
 const tints = ['var(--color-beige)', '#e6dccb', '#dfe5cf', '#ecd6cf', '#d7e2e2']
 
 interface Props {
@@ -75,7 +78,8 @@ export function SmartImage({
   return (
     <div className={`relative overflow-hidden bg-beige ${className}`} style={style}>
       <img
-        src={image.src}
+        src={image.thumb ?? image.src}
+        srcSet={image.thumb && image.width && image.height ? `${image.thumb} ${thumbWidth(image.width, image.height)}w, ${image.src} ${image.width}w` : undefined}
         alt={image.alt}
         width={image.width}
         height={image.height}

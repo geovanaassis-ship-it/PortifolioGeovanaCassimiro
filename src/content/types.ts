@@ -9,6 +9,8 @@ export interface MediaImage {
   src: string
   /** Descrição da imagem para leitores de tela (obrigatório). */
   alt: string
+  /** Versão menor (opcional), usada nas grades; `src` fica para a imagem ampliada. */
+  thumb?: string
   /** Largura e altura originais em px — evitam "pulos" no layout enquanto a imagem carrega. */
   width?: number
   height?: number

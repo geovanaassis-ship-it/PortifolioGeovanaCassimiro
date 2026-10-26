@@ -109,26 +109,40 @@ Regras rápidas:
 
 ## Adicionar fotos e vídeos
 
-Em `src/content/photography.ts`:
+### Fotos da galeria (automático)
+
+1. No GitHub, abra a pasta `fotos/` e clique em **Add file → Upload files**.
+2. Arraste **uma pasta por ensaio** (ex.: `Aniversário`, `Corrida`), com as fotos no tamanho original.
+3. Clique em **Commit changes**.
+
+Em poucos minutos a ação **Processar fotos** (aba *Actions*) reduz as fotos para a web
+(lado maior de 2000 px, mais uma miniatura de 900 px, em `.webp`), remove os dados de GPS,
+coloca tudo em `public/images/fotografia/<ensaio>/`, atualiza `src/content/photo-gallery.json`
+e apaga os originais de `fotos/`. Fotos novas em um ensaio que já existe entram no fim.
+
+No computador, o mesmo processo roda com `npm run fotos`.
+
+Para dar título, categoria e texto a um ensaio, edite `seriesInfo` em `src/content/photography.ts`
+(o `slug` é o nome da pasta em minúsculas, sem acento e com hífens). Para tirar uma foto, apague
+o `.webp` e o `-thumb.webp` dela em `public/images/fotografia/<ensaio>/` e rode `npm run fotos`
+(ou faça qualquer envio para `fotos/`).
+
+### Vídeos
+
+Em `extraSeries`, no mesmo arquivo:
 
 ```ts
 {
-  slug: 'casamento-ana-e-bia',
-  title: 'Ana & Bia',
-  category: 'eventos',                 // id de photoCategories
-  year: '2025',
-  description: 'Cobertura completa da cerimônia e da festa.',
-  photos: [
-    { src: '/images/fotografia/casamento-ana-e-bia/01.webp', alt: 'Noivas saindo da cerimônia', width: 1600, height: 2400 },
-    { src: '/images/fotografia/casamento-ana-e-bia/02.webp', alt: '…', width: 2400, height: 1600, caption: 'Legenda opcional' },
-  ],
+  slug: 'videos',
+  title: 'Produção audiovisual',
+  category: 'audiovisual',
+  photos: [],
   videos: [{ kind: 'video', provider: 'youtube', source: 'ID_DO_VIDEO', title: 'Teaser' }],
   links: [{ label: 'Ver no Instagram', url: 'https://www.instagram.com/p/XXXXX/' }],
 },
 ```
 
 - Fotos mantêm a proporção original (sem cortes) e abrem em um lightbox com setas, teclado e gesto de deslizar.
-- **Width/height:** no Windows, clique com o botão direito → Propriedades → Detalhes; no Mac, abra no Visualizador → Ferramentas → Mostrar Inspetor.
 - Vídeos do YouTube/Vimeo: use só o ID (o trecho depois de `v=` ou o número do Vimeo). O player só carrega quando a pessoa clica.
 - Reels e TikToks não têm incorporação confiável: adicione como `links`.
 - Categorias (`photoCategories`) podem ser renomeadas, removidas ou reordenadas.
