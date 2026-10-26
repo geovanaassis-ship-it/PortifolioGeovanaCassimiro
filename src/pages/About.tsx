@@ -59,7 +59,7 @@ export function About() {
         }
       >
         <p>
-          Estudante de Publicidade e Propaganda na USCS, no 7º semestre, com formação anterior em Análise e Desenvolvimento de Sistemas. Trabalho com marketing, conteúdo e produção visual.
+          Estudante de Publicidade e Propaganda na USCS, no 6º semestre, com formação anterior em Análise e Desenvolvimento de Sistemas. Trabalho com marketing, conteúdo e produção visual.
         </p>
         <div className="mt-7 flex flex-wrap gap-3">
           {site.socials.linkedin ? (
