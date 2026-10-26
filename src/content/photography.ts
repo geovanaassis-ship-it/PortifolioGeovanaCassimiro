@@ -4,7 +4,7 @@ import type { Category, PhotoSeries } from './types'
  * FOTOGRAFIA E AUDIOVISUAL
  *
  * As FOTOS da galeria não ficam aqui: são enviadas e organizadas pela área de
- * admin do site (/admin), com nichos, nomes e datas.
+ * admin do site (/abc), com nichos, nomes e datas.
  *
  * Este arquivo guarda só os VÍDEOS, exibidos abaixo da galeria.
  * YouTube/Vimeo entram com o ID; Reels e TikToks entram como link.

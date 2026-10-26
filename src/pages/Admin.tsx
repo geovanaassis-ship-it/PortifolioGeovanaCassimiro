@@ -7,7 +7,7 @@ import { slugify, type Gallery, type GalleryNiche, type GalleryPhoto } from '../
 import { photoDate, resizePhoto } from '../lib/image-resize'
 
 /**
- * ÁREA DE ADMIN (/admin)
+ * ÁREA DE ADMIN (/abc)
  * Envio e organização das fotos da galeria. Protegida pela senha ADMIN_PASSWORD
  * (configurada na Vercel). Não aparece no menu nem nos buscadores.
  */

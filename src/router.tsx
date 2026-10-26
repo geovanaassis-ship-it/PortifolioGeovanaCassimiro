@@ -41,7 +41,7 @@ export const router = createBrowserRouter([
       { path: '/outros-projetos', element: <OtherProjects /> },
       { path: '/outros-projetos/:slug', element: <ProjectPage /> },
       { path: '/contato', element: <Contact /> },
-      { path: '/admin', element: <Admin /> },
+      { path: '/abc', element: <Admin /> },
       { path: '*', element: <NotFound /> },
     ],
   },

@@ -109,7 +109,7 @@ Regras rápidas:
 
 ### Fotos da galeria — área de admin
 
-A galeria de `/fotografia` é gerenciada em **`/admin`** (não aparece no menu nem no Google):
+A galeria de `/fotografia` é gerenciada em **`/abc`** (não aparece no menu nem no Google):
 
 - **Enviar fotos:** escolha o nicho e arraste as fotos (pode ser no tamanho original — o navegador
   reduz para 2000 px + miniatura de 900 px em WEBP e remove o GPS). A data é lida da própria foto.
