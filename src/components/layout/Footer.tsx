@@ -56,6 +56,13 @@ export function Footer() {
                 </a>
               </li>
             )}
+            {site.phone && (
+              <li>
+                <a href={`https://wa.me/${site.phone.e164}`} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 hover:text-butter">
+                  <Icon name="phone" size={18} /> {site.phone.display} <span className="sr-only">(WhatsApp, abre em nova aba)</span>
+                </a>
+              </li>
+            )}
             {!site.socials.linkedin && !site.email && <li className="text-beige/60">Canais em configuração.</li>}
           </ul>
         </div>

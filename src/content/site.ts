@@ -20,14 +20,20 @@ export const site = {
    */
   showPlaceholders: true,
 
-  /** E-mail profissional. [A PREENCHER] */
-  email: null as string | null,
+  /** E-mail profissional. */
+  email: 'geovana.photomidias@gmail.com' as string | null,
+
+  /**
+   * Telefone / WhatsApp. `display` é como aparece no site; `e164` é o número
+   * completo com DDI (só dígitos), usado nos links de ligação e WhatsApp.
+   */
+  phone: { display: '(11) 95217-7816', e164: '5511952177816' } as { display: string; e164: string } | null,
 
   socials: {
-    /** URL completa do perfil. [A PREENCHER] */
-    linkedin: null as string | null,
-    /** Instagram profissional (opcional). [A PREENCHER] */
-    instagram: null as string | null,
+    /** URL completa do perfil. */
+    linkedin: 'https://www.linkedin.com/in/geovana-cassimiro-774b93208/' as string | null,
+    /** Instagram profissional (opcional). */
+    instagram: 'https://www.instagram.com/geovana.cassimiro/' as string | null,
     /** Outros canais opcionais, ex.: Behance, YouTube. */
     others: [] as { label: string; url: string }[],
   },

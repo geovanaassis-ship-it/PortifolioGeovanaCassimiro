@@ -95,7 +95,7 @@ export function Contact() {
           </div>
         }
       >
-        <p>Para oportunidades, projetos ou parcerias, o caminho mais rápido é o e-mail. Também estou no LinkedIn.</p>
+        <p>Para oportunidades, projetos ou parcerias, o caminho mais rápido é o e-mail ou o WhatsApp. Também estou no LinkedIn e no Instagram.</p>
       </PageHeader>
 
       <section className="container-page grid gap-10 pb-10 lg:grid-cols-[1fr_1.2fr]">
@@ -104,7 +104,7 @@ export function Contact() {
             <p className="label-mono text-olive">E-mail</p>
             {site.email ? (
               <>
-                <a href={`mailto:${site.email}`} className="mt-2 block break-all font-display text-[clamp(1.4rem,3.2vw,2rem)] underline decoration-1 underline-offset-4 hover:decoration-2">
+                <a href={`mailto:${site.email}`} className="mt-2 block break-all font-display text-[clamp(1.15rem,2.2vw,1.6rem)] underline decoration-1 underline-offset-4 hover:decoration-2">
                   {site.email}
                 </a>
                 <div className="mt-6 flex flex-wrap gap-3">
@@ -121,6 +121,18 @@ export function Contact() {
               <p className="mt-3">{site.showPlaceholders ? <Pending>E-mail: configurar em src/content/site.ts</Pending> : 'Em breve.'}</p>
             )}
           </div>
+
+          {site.phone && (
+            <div className="rounded-[var(--radius-swatch)] bg-butter p-6 sm:p-8">
+              <p className="label-mono text-olive">Telefone e WhatsApp</p>
+              <a href={`tel:+${site.phone.e164}`} className="mt-2 block font-display text-[clamp(1.4rem,3.2vw,2rem)] underline decoration-1 underline-offset-4 hover:decoration-2">
+                {site.phone.display}
+              </a>
+              <div className="mt-6 flex flex-wrap gap-3">
+                <ExternalButton href={`https://wa.me/${site.phone.e164}`} variant="primary" iconLeft="phone">Chamar no WhatsApp</ExternalButton>
+              </div>
+            </div>
+          )}
 
           <div className="grid gap-4 sm:grid-cols-2">
             <div className="rounded-[var(--radius-swatch)] bg-midnight p-6 text-beige on-dark">
