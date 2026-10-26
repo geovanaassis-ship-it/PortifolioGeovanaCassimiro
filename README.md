@@ -109,27 +109,33 @@ Regras rápidas:
 
 ## Adicionar fotos e vídeos
 
-### Fotos da galeria (automático)
+### Fotos da galeria — área de admin
 
-1. No GitHub, abra a pasta `fotos/` e clique em **Add file → Upload files**.
-2. Arraste **uma pasta por ensaio** (ex.: `Aniversário`, `Corrida`), com as fotos no tamanho original.
-3. Clique em **Commit changes**.
+A galeria de `/fotografia` é gerenciada em **`/admin`** (não aparece no menu nem no Google):
 
-Em poucos minutos a ação **Processar fotos** (aba *Actions*) reduz as fotos para a web
-(lado maior de 2000 px, mais uma miniatura de 900 px, em `.webp`), remove os dados de GPS,
-coloca tudo em `public/images/fotografia/<ensaio>/`, atualiza `src/content/photo-gallery.json`
-e apaga os originais de `fotos/`. Fotos novas em um ensaio que já existe entram no fim.
+- **Enviar fotos:** escolha o nicho e arraste as fotos (pode ser no tamanho original — o navegador
+  reduz para 2000 px + miniatura de 900 px em WEBP e remove o GPS). A data é lida da própria foto.
+- **Nichos:** são os filtros da galeria. Crie, renomeie, reordene e escreva uma descrição.
+- **Fotos:** dê um nome (aparece ao passar o mouse), ajuste a data, troque o nicho, mude a ordem ou apague.
+  Clique em **Salvar alterações** no fim.
 
-No computador, o mesmo processo roda com `npm run fotos`.
+Como funciona por trás: as funções em `api/` (login, galeria e envio) rodam na Vercel; fotos e dados
+ficam no **Vercel Blob**. Os dados são salvos como um arquivo novo a cada alteração, e as 10 últimas
+versões ficam guardadas como cópia de segurança. Enquanto nada for salvo pelo admin, o site mostra
+`public/galeria-inicial.json`.
 
-Para dar título, categoria e texto a um ensaio, edite `seriesInfo` em `src/content/photography.ts`
-(o `slug` é o nome da pasta em minúsculas, sem acento e com hífens). Para tirar uma foto, apague
-o `.webp` e o `-thumb.webp` dela em `public/images/fotografia/<ensaio>/` e rode `npm run fotos`
-(ou faça qualquer envio para `fotos/`).
+**Configuração na Vercel (uma vez):**
+1. *Storage → Create → Blob* e conecte ao projeto (cria `BLOB_READ_WRITE_TOKEN` sozinho).
+2. *Settings → Environment Variables:* `ADMIN_PASSWORD` = sua senha (longa).
+   Opcional: `ADMIN_SESSION_SECRET` = um texto aleatório longo.
+3. Publique de novo (*Deployments → Redeploy*).
+
+**No computador:** crie `.env.local` com `ADMIN_PASSWORD=...` e rode `npm run dev`. Sem
+`BLOB_READ_WRITE_TOKEN`, as fotos enviadas ficam em `public/dev-uploads/` (fora do Git).
 
 ### Vídeos
 
-Em `extraSeries`, no mesmo arquivo:
+Em `photoSeries`, em `src/content/photography.ts`:
 
 ```ts
 {

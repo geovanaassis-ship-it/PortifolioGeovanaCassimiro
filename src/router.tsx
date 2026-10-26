@@ -2,6 +2,7 @@ import { createBrowserRouter, isRouteErrorResponse, useRouteError } from 'react-
 import { Layout } from './components/layout/Layout'
 import { ButtonLink } from './components/ui/Button'
 import { About } from './pages/About'
+import { Admin } from './pages/Admin'
 import { CacoC360 } from './pages/CacoC360'
 import { Contact } from './pages/Contact'
 import { Home } from './pages/Home'
@@ -40,6 +41,7 @@ export const router = createBrowserRouter([
       { path: '/outros-projetos', element: <OtherProjects /> },
       { path: '/outros-projetos/:slug', element: <ProjectPage /> },
       { path: '/contato', element: <Contact /> },
+      { path: '/admin', element: <Admin /> },
       { path: '*', element: <NotFound /> },
     ],
   },

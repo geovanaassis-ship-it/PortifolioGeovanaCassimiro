@@ -3,3 +3,8 @@ dist
 .env.local
 *.local
 .DS_Store
+
+# Uploads e dados do admin em desenvolvimento local
+public/dev-uploads
+.dev-data
+.vercel
