@@ -1,6 +1,7 @@
 import { headline, intro } from '../../content/about'
 import { site } from '../../content/site'
 import { ButtonLink, buttonClass } from '../ui/Button'
+import { BeadWord } from '../ui/BeadWord'
 import { CutoutWord } from '../ui/CutoutWord'
 import { Icon } from '../ui/Icon'
 import { CameraFrame } from './CameraFrame'
@@ -21,9 +22,7 @@ export function Hero() {
           <span className="sr-only">{site.name}</span>
           <span aria-hidden="true" className="block">
             <CutoutWord word="Geovana" className="text-[clamp(3rem,10.5vw,6.6rem)]" />
-            <span className="mt-1 block font-display text-[clamp(3.1rem,11vw,7rem)] font-normal italic leading-[0.95] tracking-[-0.03em]">
-              Cassimiro
-            </span>
+            <BeadWord word="Cassimiro" size="clamp(2rem, 8.4vw, 3.9rem)" className="ml-[0.6rem] mt-4" />
           </span>
         </h1>
 
