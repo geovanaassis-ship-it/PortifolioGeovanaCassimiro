@@ -24,7 +24,8 @@ export const photoCategories: Category[] = [
  * "Adicionar fotos à galeria").
  *
  * Aqui ficam só o título, a categoria e o texto de cada ensaio, ligados pelo slug
- * (o nome da pasta em fotos/, em minúsculas e sem acento: "Hamburgada do Bem" → "hamburgada-do-bem").
+ * (o nome da pasta em fotos/, em minúsculas e sem acento: "Viola Dance" → "viola-dance"; para fotos
+ * soltas, o trecho do nome do arquivo depois do último " - ": "Evento - Hamburgada(2).jpg" → "hamburgada").
  * A ordem desta lista é a ordem em que os ensaios aparecem no site.
  * Pastas de fotos sem bloco aqui também aparecem, com o nome da pasta como título.
  */
@@ -40,7 +41,7 @@ const seriesInfo: Omit<PhotoSeries, 'photos'>[] = [
     category: 'eventos',
   },
   {
-    slug: 'hamburgada-do-bem',
+    slug: 'hamburgada',
     title: 'Hamburgada do Bem',
     category: 'eventos',
     description: 'Registro fotográfico voluntário das ações solidárias da Hamburgada do Bem.',

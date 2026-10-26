@@ -2,6 +2,9 @@
  * Prepara as fotos da galeria.
  *
  * 1. Lê as fotos originais em fotos/<nome-do-ensaio>/ (jpg, png, webp, tiff, heic).
+ *    Fotos soltas direto em fotos/ também funcionam: o ensaio vem do nome do arquivo,
+ *    usando o trecho depois do último " - " e sem a numeração
+ *    ("Evento - Hamburgada(3).jpg" → ensaio "hamburgada").
  * 2. Gera duas versões .webp em public/images/fotografia/<slug>/:
  *    - <slug>-NN.webp       (lado maior de 2000 px, usada ao ampliar)
  *    - <slug>-NN-thumb.webp (lado maior de 900 px, usada na grade)
@@ -49,34 +52,51 @@ async function nextIndex(outDir, slug) {
   return nums.length ? Math.max(...nums) + 1 : 1
 }
 
+const isPhoto = (f) => INPUT_EXT.has(extname(f).toLowerCase())
+
+/** "Evento - Hamburgada(3).jpg" → "hamburgada"; "Viola Dance 02.JPG" → "viola-dance". */
+const slugFromFileName = (file) =>
+  slugify(
+    file
+      .slice(0, -extname(file).length)
+      .split(' - ')
+      .pop()
+      .replace(/[\s_-]*(\(\d+\)|\d+)$/, ''),
+  )
+
+/** Agrupa as fotos por ensaio: { slug: [caminhos] }. */
+const groups = new Map()
+const add = (slug, path) => slug && groups.set(slug, [...(groups.get(slug) ?? []), path])
+const sortedFiles = async (dir) => ((await exists(dir)) ? (await readdir(dir)).filter(isPhoto).sort(naturalSort) : [])
+for (const folder of await dirs(INPUT)) for (const f of await sortedFiles(join(INPUT, folder))) add(slugify(folder), join(INPUT, folder, f))
+for (const f of await sortedFiles(INPUT)) add(slugFromFileName(f), join(INPUT, f))
+
 let processed = 0
-for (const folder of await dirs(INPUT)) {
-  const slug = slugify(folder)
-  if (!slug) continue
-  const inDir = join(INPUT, folder)
+for (const [slug, files] of groups) {
   const outDir = join(OUTPUT, slug)
   await mkdir(outDir, { recursive: true })
   let n = await nextIndex(outDir, slug)
 
-  const files = (await readdir(inDir)).filter((f) => INPUT_EXT.has(extname(f).toLowerCase())).sort(naturalSort)
-  for (const file of files) {
+  for (const src of files) {
     const name = `${slug}-${String(n).padStart(2, '0')}`
-    const src = join(inDir, file)
     try {
       // rotate() aplica a orientação do celular/câmera antes de remover os metadados.
       const base = sharp(src, { failOn: 'none' }).rotate()
       await base.clone().resize(FULL, FULL, { fit: 'inside', withoutEnlargement: true }).webp({ quality: 80 }).toFile(join(outDir, `${name}.webp`))
       await base.clone().resize(THUMB, THUMB, { fit: 'inside', withoutEnlargement: true }).webp({ quality: 75 }).toFile(join(outDir, `${name}-thumb.webp`))
       await rm(src)
-      console.log(`✓ ${folder}/${file} → ${outDir}/${name}.webp`)
+      console.log(`✓ ${src} → ${outDir}/${name}.webp`)
       processed++
       n++
     } catch (err) {
-      console.error(`✗ ${folder}/${file}: ${err.message}`)
+      console.error(`✗ ${src}: ${err.message}`)
       process.exitCode = 1
     }
   }
-  if ((await readdir(inDir)).every((f) => f.startsWith('.'))) await rm(inDir, { recursive: true })
+}
+for (const folder of await dirs(INPUT)) {
+  const dir = join(INPUT, folder)
+  if ((await readdir(dir)).every((f) => f.startsWith('.'))) await rm(dir, { recursive: true })
 }
 
 // Reconstrói a lista a partir do que existe de fato em public/images/fotografia/.
