@@ -45,6 +45,12 @@ const seriesInfo: Omit<PhotoSeries, 'photos'>[] = [
     category: 'eventos',
     description: 'Registro fotográfico voluntário das ações solidárias da Hamburgada do Bem.',
   },
+  {
+    slug: 'viola-dance',
+    title: 'Viola Dance',
+    category: 'comercial',
+    description: 'Fotografia publicitária.',
+  },
 ]
 
 /** Vídeos e ensaios sem fotos (YouTube/Vimeo entram com o ID; Reels e TikToks entram como link). */
