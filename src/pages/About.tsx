@@ -41,7 +41,7 @@ export function About() {
         aside={
           <CameraFrame body="#c9ccc2" label="RETRATO" className="mx-auto max-w-[24rem]">
             {site.portrait ? (
-              <SmartImage image={site.portrait} ratio="4 / 5" priority />
+              <SmartImage image={site.portrait} priority sizes="(min-width: 768px) 384px, 90vw" />
             ) : (
               <div className="placeholder-art grid aspect-[4/5] place-items-center text-ink" style={{ ['--ph-bg' as string]: 'var(--color-beige)' }}>
                 {site.showPlaceholders ? (

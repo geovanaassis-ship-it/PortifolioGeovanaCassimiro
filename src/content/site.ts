@@ -38,8 +38,13 @@ export const site = {
    */
   resumePath: '/curriculo/geovana-cassimiro-curriculo.pdf',
 
-  /** Retrato (opcional) exibido na página Sobre. Ex.: { src: '/images/perfil/retrato.webp', alt: '...' } */
-  portrait: null as { src: string; alt: string } | null,
+  /** Retrato exibido na página Sobre. Informe width/height reais para manter a proporção sem cortes. */
+  portrait: {
+    src: '/images/perfil/retrato.webp',
+    alt: 'Geovana Cassimiro sorrindo, sentada em uma cadeira azul com um joelho dobrado, de blusa verde e calça preta, em frente a um fundo escuro',
+    width: 1200,
+    height: 1800,
+  } as { src: string; alt: string; width?: number; height?: number } | null,
 
   /** Filtros de categoria só aparecem a partir desta quantidade de projetos na seção. */
   minProjectsForFilters: 4,
