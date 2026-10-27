@@ -61,18 +61,16 @@ export function About() {
         <p>
           Estudante de Publicidade e Propaganda na USCS, no 7º semestre, com formação anterior em Análise e Desenvolvimento de Sistemas. Trabalho com marketing, conteúdo e produção visual.
         </p>
-        <div className="mt-7 flex flex-wrap gap-3">
-          {site.socials.linkedin ? (
-            <ExternalButton href={site.socials.linkedin} iconLeft="linkedin" icon="arrowUpRight">LinkedIn</ExternalButton>
-          ) : (
-            site.showPlaceholders && <Pending>LinkedIn: configurar em src/content/site.ts</Pending>
-          )}
-          {resume ? (
-            <ExternalButton href={site.resumePath} variant="outline" iconLeft="file" icon="arrowUpRight">Ver currículo (PDF)</ExternalButton>
-          ) : (
-            site.showPlaceholders && <Pending>Currículo: adicionar PDF em public/curriculo/</Pending>
-          )}
-        </div>
+        {(site.socials.linkedin || resume) && (
+          <div className="mt-7 flex flex-wrap gap-3">
+            {site.socials.linkedin && (
+              <ExternalButton href={site.socials.linkedin} iconLeft="linkedin" icon="arrowUpRight">LinkedIn</ExternalButton>
+            )}
+            {resume && (
+              <ExternalButton href={site.resumePath} variant="outline" iconLeft="file" icon="arrowUpRight">Ver currículo (PDF)</ExternalButton>
+            )}
+          </div>
+        )}
       </PageHeader>
 
       <section className="container-page py-16 md:py-24" aria-label="Minha trajetória">
