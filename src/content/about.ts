@@ -1,7 +1,8 @@
+import type { ToolId } from '../components/ui/tool-logos'
+
 /**
  * PÁGINA "SOBRE MIM"
  * Textos em primeira pessoa. Edite livremente — separe parágrafos com itens do array.
- * Itens com [A PREENCHER] precisam ser completados com os dados do currículo.
  */
 
 export const headline = 'Comunicação com método. Imagem com intenção.'
@@ -20,7 +21,8 @@ export const story: { title: string; paragraphs: string[] }[] = [
   {
     title: 'Comunicação em um ambiente que exige precisão',
     paragraphs: [
-      'Hoje estou no 7º semestre de Publicidade e Propaganda e atuo no marketing da More Invest, empresa do mercado financeiro. É um contexto em que cada palavra pesa: a comunicação precisa ser clara para quem está começando e correta para quem já conhece o assunto.',
+      'Hoje estou no 7º semestre de Publicidade e Propaganda e sou estagiária de marketing na More Invest, empresa do mercado financeiro. É um contexto em que cada palavra pesa: a comunicação precisa ser clara para quem está começando e correta para quem já conhece o assunto. Para acompanhar essa linguagem, estou cursando a trilha CPA-Anbima.',
+      'Antes disso, passei pelo marketing do Colégio Arbos, criando campanhas e materiais de comunicação institucional para públicos interno e externo, além de captar e editar conteúdo para as redes sociais.',
     ],
   },
   {
@@ -33,18 +35,21 @@ export const story: { title: string; paragraphs: string[] }[] = [
     title: 'A câmera como forma de pensar',
     paragraphs: [
       'Fotografia e audiovisual são onde treino o olhar: luz, enquadramento, ritmo. E também onde lembro que comunicar é, antes de tudo, escolher o que mostrar.',
+      'Trabalho como fotógrafa e videomaker freelancer em eventos e estabelecimentos comerciais, e sou voluntária na Hamburgada do Bem, onde faço o registro fotográfico das ações solidárias.',
     ],
   },
 ]
 
-/** Linha do tempo resumida. Complete as datas com base no currículo. */
+/** Linha do tempo resumida. */
 export const timeline: { period: string; title: string; place: string; note?: string }[] = [
-  { period: '[ANO] – atual', title: 'Marketing', place: 'More Invest', note: 'Mercado financeiro' },
-  { period: '[ANO] – atual', title: 'Head de Conteúdo', place: 'CACO — Centro Acadêmico de Comunicação da USCS' },
-  { period: '[ANO] – atual', title: 'Projetos editoriais e criativos', place: 'Portal C360' },
-  { period: '[ANO] – atual', title: 'Fotografia e produção audiovisual', place: 'Trabalhos próprios' },
-  { period: '[ANO] – atual', title: 'Publicidade e Propaganda', place: 'USCS', note: 'Cursando o 7º semestre' },
-  { period: '[ANO] – [ANO]', title: 'Análise e Desenvolvimento de Sistemas', place: '[INSTITUIÇÃO — A PREENCHER]' },
+  { period: 'set/2025 – atual', title: 'Estagiária de Marketing', place: 'More Invest', note: 'Mercado financeiro' },
+  { period: 'Em andamento', title: 'Head de Conteúdo', place: 'CACO — Centro Acadêmico de Comunicação da USCS' },
+  { period: 'Em andamento', title: 'Head de Conteúdo', place: 'Portal C360 — USCS' },
+  { period: 'Em andamento', title: 'Fotógrafa e videomaker freelancer', place: 'Autônoma' },
+  { period: 'Em andamento', title: 'Voluntária — fotografia e organização', place: 'Hamburgada do Bem' },
+  { period: 'fev/2024 – jul/2025', title: 'Estagiária de Marketing', place: 'Colégio Arbos' },
+  { period: 'até jul/2027', title: 'Publicidade e Propaganda', place: 'USCS', note: 'Cursando o 7º semestre' },
+  { period: 'concluído em jan/2023', title: 'Tecnólogo em Análise e Desenvolvimento de Sistemas', place: 'Universidade São Judas Tadeu' },
 ]
 
 export const skills: { group: string; items: string[] }[] = [
@@ -63,7 +68,7 @@ export const skills: { group: string; items: string[] }[] = [
   },
   {
     group: 'Imagem',
-    items: ['Direção e produção visual', 'Fotografia', 'Produção audiovisual'],
+    items: ['Direção e produção visual', 'Fotografia editorial', 'Produção audiovisual'],
   },
   {
     group: 'Gestão',
@@ -71,5 +76,5 @@ export const skills: { group: string; items: string[] }[] = [
   },
 ]
 
-/** Ferramentas que você realmente usa — copie do currículo. */
-export const tools: string[] = ['[A PREENCHER com as ferramentas do currículo]']
+/** Ferramentas que você realmente usa, exibidas como logos (ids em components/ui/tool-logos.ts). */
+export const tools: ToolId[] = ['canva', 'powerpoint', 'adobe', 'capcut', 'claude', 'chatgpt', 'gemini']

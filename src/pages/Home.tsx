@@ -8,6 +8,7 @@ import { CodeMark } from '../components/ui/PoolBall'
 import { WaxSeal } from '../components/ui/WaxSeal'
 import { EmptyState, SectionLabel } from '../components/ui/bits'
 import { featuredProjects } from '../lib/content'
+import { useProjects } from '../lib/projects'
 
 const now = [
   { where: 'More Invest', what: 'Marketing no mercado financeiro' },
@@ -17,7 +18,8 @@ const now = [
 ]
 
 export function Home() {
-  const featured = featuredProjects().slice(0, 6)
+  const projects = useProjects()
+  const featured = projects ? featuredProjects(projects).slice(0, 6) : []
   return (
     <>
       <Seo />
@@ -44,7 +46,9 @@ export function Home() {
           </div>
           <p className="max-w-sm text-ink/70">Uma amostra do que faço em marketing, conteúdo e produção visual. Cada projeto mostra o contexto e a minha parte nele.</p>
         </div>
-        {featured.length ? (
+        {!projects ? (
+          <p className="label-mono py-10 text-center text-ink/55">Carregando projetos…</p>
+        ) : featured.length ? (
           <ul className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
             {featured.map((p, i) => (
               <li key={p.path}>
@@ -73,7 +77,7 @@ export function Home() {
 
       <section className="container-page pt-20">
         <div className="on-dark relative overflow-hidden rounded-[2rem] bg-cherry px-6 py-14 text-butter sm:px-12">
-          <WaxSeal size={130} tone="gold" motif="gc" rotate={12} className="absolute -right-4 -top-6 hidden sm:block" />
+          <WaxSeal size={130} rotate={12} className="absolute -right-4 -top-6 hidden sm:block" />
           <p className="label-mono text-rosy"><CodeMark code="#06 · Contato" size={30} /></p>
           <h2 className="mt-4 max-w-2xl text-[clamp(2rem,4.6vw,3.4rem)] font-medium">
             Tem um projeto, uma vaga ou uma ideia? <span className="italic">Vamos conversar.</span>

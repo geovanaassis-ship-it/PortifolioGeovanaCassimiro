@@ -2,6 +2,7 @@ import { Link, useLocation } from 'react-router'
 import { sections } from '../content/site'
 import { isVideo, type MediaImage, type MediaVideo } from '../content/types'
 import { categoryLabel, findProjectByPath, siblings } from '../lib/content'
+import { useProjects } from '../lib/projects'
 import { MasonryGallery } from '../components/gallery/MasonryGallery'
 import { VideoEmbed } from '../components/gallery/VideoEmbed'
 import { sectionTheme } from '../components/projects/theme'
@@ -35,12 +36,14 @@ function MetaItem({ label, children }: { label: string; children: React.ReactNod
 
 export function ProjectPage() {
   const { pathname } = useLocation()
-  const project = findProjectByPath(pathname)
+  const projects = useProjects()
+  if (!projects) return <p className="label-mono container-page py-32 text-center text-ink/55">Carregando projeto…</p>
+  const project = findProjectByPath(projects, pathname)
   if (!project || !project.hasDetail) return <NotFound />
 
   const section = sections[project.section]
   const theme = sectionTheme[project.section]
-  const { prev, next } = siblings(project)
+  const { prev, next } = siblings(projects, project)
   const images = (project.gallery ?? []).filter((g): g is MediaImage => !isVideo(g))
   const videos = (project.gallery ?? []).filter((g): g is MediaVideo => isVideo(g))
   const backLabel = project.section === 'caco' || project.section === 'c360' ? 'CACO e Portal C360' : section.label

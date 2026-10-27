@@ -2,15 +2,12 @@ import { useEffect, useRef, useState } from 'react'
 import { Link, NavLink, useLocation } from 'react-router'
 import { navigation, site } from '../../content/site'
 import { Icon } from '../ui/Icon'
-import { StarSticker } from '../ui/StarSticker'
+import { WaxSeal } from '../ui/WaxSeal'
 import { MobileMenu } from './MobileMenu'
 
 export function Monogram() {
   return (
-    <span className="relative inline-grid h-10 w-10 place-items-center rounded-xl bg-ink font-display text-lg font-semibold italic text-beige">
-      gc
-      <StarSticker size={18} color="var(--color-rosy)" variant="puffy" rotate={14} className="absolute -right-1.5 -top-1.5" />
-    </span>
+    <WaxSeal size={46} rotate={-6} className="-my-1" />
   )
 }
 

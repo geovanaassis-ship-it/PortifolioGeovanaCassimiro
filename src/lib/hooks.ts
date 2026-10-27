@@ -1,31 +1,4 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
-import { site } from '../content/site'
-
-let resumeCheck: Promise<boolean> | null = null
-
-/**
- * Verifica se o PDF do currículo existe de fato. Hospedagens de SPA costumam devolver o
- * index.html para arquivos inexistentes (status 200), então conferimos o content-type.
- */
-function checkResume() {
-  resumeCheck ??= fetch(site.resumePath, { method: 'HEAD' })
-    .then((r) => r.ok && (r.headers.get('content-type') ?? '').includes('pdf'))
-    .catch(() => false)
-  return resumeCheck
-}
-
-export function useResumeAvailable() {
-  const [available, setAvailable] = useState(false)
-  useEffect(() => {
-    let alive = true
-    checkResume().then((ok) => alive && setAvailable(ok))
-    return () => {
-      alive = false
-    }
-  }, [])
-  return available
-}
-
 /** Copia um texto e mantém o estado "copiado" por alguns segundos. */
 export function useCopy(timeout = 2200) {
   const [copied, setCopied] = useState(false)

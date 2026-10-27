@@ -1,5 +1,5 @@
 import { Link } from 'react-router'
-import { navigation, site } from '../../content/site'
+import { navigation, site, whatsappUrl } from '../../content/site'
 import { Icon } from '../ui/Icon'
 import { StarSticker } from '../ui/StarSticker'
 import { WaxSeal } from '../ui/WaxSeal'
@@ -11,7 +11,7 @@ export function Footer() {
       <StarSticker size={140} color="var(--color-midnight)" accent="var(--color-moss)" rotate={-14} className="absolute -right-8 -top-10 opacity-70" />
       <div className="container-page relative grid gap-12 py-16 md:grid-cols-[1.4fr_1fr_1fr]">
         <div>
-          <WaxSeal size={76} tone="cherry" motif="gc" className="mb-6" />
+          <WaxSeal size={84} className="mb-6" />
           <p className="font-display text-4xl leading-tight md:text-5xl">
             Vamos <span className="italic text-rosy">conversar?</span>
           </p>
@@ -53,6 +53,13 @@ export function Footer() {
               <li>
                 <a href={`mailto:${site.email}`} className="inline-flex items-center gap-2 break-all hover:text-butter">
                   <Icon name="mail" size={18} /> {site.email}
+                </a>
+              </li>
+            )}
+            {whatsappUrl && (
+              <li>
+                <a href={whatsappUrl} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 hover:text-butter">
+                  <Icon name="phone" size={18} /> WhatsApp <span className="sr-only">(abre em nova aba)</span>
                 </a>
               </li>
             )}

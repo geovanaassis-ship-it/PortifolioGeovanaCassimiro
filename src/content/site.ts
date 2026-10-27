@@ -2,7 +2,7 @@ import type { Category, SectionId } from './types'
 
 /**
  * CONFIGURAÇÕES GERAIS DO SITE
- * Links, contatos, currículo e textos curtos de apresentação.
+ * Links, contatos e textos curtos de apresentação.
  * Campos com valor null ficam ocultos no site (ou aparecem como "a configurar"
  * enquanto showPlaceholders estiver true).
  */
@@ -20,25 +20,25 @@ export const site = {
    */
   showPlaceholders: true,
 
-  /** E-mail profissional. [A PREENCHER] */
-  email: null as string | null,
+  /** E-mail profissional. */
+  email: 'geovana.photomidias@gmail.com' as string | null,
+
+  /**
+   * WhatsApp: número completo com DDI, só dígitos. O número não aparece escrito no
+   * site; ele só é usado no botão "Chamar no WhatsApp" (link wa.me).
+   */
+  whatsapp: '5511952177816' as string | null,
 
   socials: {
-    /** URL completa do perfil. [A PREENCHER] */
-    linkedin: null as string | null,
-    /** Instagram profissional (opcional). [A PREENCHER] */
-    instagram: null as string | null,
+    /** URL completa do perfil. */
+    linkedin: 'https://www.linkedin.com/in/geovana-cassimiro-774b93208/' as string | null,
+    /** Instagram profissional (opcional). */
+    instagram: 'https://www.instagram.com/geovana.cassimiro/' as string | null,
     /** Outros canais opcionais, ex.: Behance, YouTube. */
     others: [] as { label: string; url: string }[],
   },
 
-  /**
-   * Currículo em PDF. Coloque o arquivo em public/curriculo/ com exatamente este nome.
-   * O botão só aparece quando o arquivo existe de verdade (o site verifica sozinho).
-   */
-  resumePath: '/curriculo/geovana-cassimiro-curriculo.pdf',
-
-  /** Retrato exibido na página Sobre. Informe width/height reais para manter a proporção sem cortes. */
+  /** Retrato (opcional) exibido na página Sobre. Ex.: { src: '/images/perfil/retrato.webp', alt: '...' } */
   portrait: {
     src: '/images/perfil/retrato.webp',
     alt: 'Geovana Cassimiro sorrindo, sentada em uma cadeira azul com um joelho dobrado, de blusa verde e calça preta, em frente a um fundo escuro',
@@ -49,6 +49,9 @@ export const site = {
   /** Filtros de categoria só aparecem a partir desta quantidade de projetos na seção. */
   minProjectsForFilters: 4,
 }
+
+/** Link do botão de WhatsApp (sem expor o número na página). */
+export const whatsappUrl = site.whatsapp ? `https://wa.me/${site.whatsapp}` : null
 
 /* ---------- Seções e categorias ---------- */
 

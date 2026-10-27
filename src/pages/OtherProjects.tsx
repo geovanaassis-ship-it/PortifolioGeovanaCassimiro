@@ -3,8 +3,10 @@ import { PageHeader } from '../components/ui/PageHeader'
 import { Seo } from '../components/ui/Seo'
 import { sections } from '../content/site'
 import { projectsBySection } from '../lib/content'
+import { useProjects } from '../lib/projects'
 
 export function OtherProjects() {
+  const projects = useProjects()
   const meta = sections.outros
   return (
     <>
@@ -23,7 +25,7 @@ export function OtherProjects() {
         <p>Trabalhos da faculdade, experimentos e estudos de caso. Nos projetos em grupo, indico a minha contribuição e quem participou comigo.</p>
       </PageHeader>
       <section className="container-page py-14 md:py-20" aria-label="Outros projetos">
-        <ProjectList projects={projectsBySection('outros')} categories={meta.categories} label="outros projetos" />
+        <ProjectList projects={projects && projectsBySection(projects, 'outros')} categories={meta.categories} label="outros projetos" />
       </section>
     </>
   )

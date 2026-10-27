@@ -1,5 +1,10 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-  <rect width="64" height="64" rx="16" fill="#0a3323"/>
-  <text x="29" y="44" text-anchor="middle" font-family="Georgia, serif" font-style="italic" font-size="34" fill="#f7f4d5">g</text>
-  <polygon points="49,7 51.8,13.2 58.5,13.9 53.5,18.4 54.9,25 49,21.6 43.1,25 44.5,18.4 39.5,13.9 46.2,13.2" fill="#d3968c" stroke="#d3968c" stroke-width="2" stroke-linejoin="round"/>
+  <defs>
+    <radialGradient id="w" cx="36%" cy="30%" r="78%"><stop offset="0" stop-color="#e6efe1"/><stop offset=".5" stop-color="#c4d3bd"/><stop offset="1" stop-color="#8fa588"/></radialGradient>
+    <linearGradient id="p" x1=".2" y1="0" x2=".8" y2="1"><stop offset="0" stop-color="#8fa588"/><stop offset="1" stop-color="#e6efe1"/></linearGradient>
+  </defs>
+  <path d="M32 2.5c4 0 6 3 9.5 4s7.5 0 10 2.6 1.6 6.6 3.4 9.8 5.6 4.5 5.6 8.6-3.1 6-4 9.6.6 7.6-2 10.2-6.6 1.8-9.8 3.7S36 60.5 32 60.5s-6.2-3.6-9.7-4.6-7.5.1-10-2.5-1.5-6.6-3.3-9.8S3.5 39.1 3.5 35s3.1-6 4-9.6-.5-7.6 2-10.2 6.5-1.7 9.7-3.6S28 2.5 32 2.5Z" fill="url(#w)"/>
+  <circle cx="32" cy="32.5" r="19.5" fill="url(#p)" stroke="#7d8f6c" stroke-opacity=".5" stroke-width="1"/>
+  <circle cx="32" cy="32.5" r="17" fill="none" stroke="#f3f7f0" stroke-width=".9"/>
+  <text x="32" y="38.5" text-anchor="middle" font-family="Georgia, serif" font-weight="700" font-size="16" fill="#6c7f5d">GC</text>
 </svg>

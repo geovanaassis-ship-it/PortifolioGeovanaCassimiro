@@ -26,6 +26,9 @@ const paths = {
       <path d="m4 7 8 6 8-6" />
     </>
   ),
+  phone: (
+    <path d="M5 4h3.5l1.75 4.5-2.25 1.5a11 11 0 0 0 6 6l1.5-2.25L20 15.5V19a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2Z" />
+  ),
   linkedin: (
     <>
       <rect x="3" y="3" width="18" height="18" rx="3.5" />

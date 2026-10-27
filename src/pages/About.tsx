@@ -10,7 +10,8 @@ import { BeadWord } from '../components/ui/BeadWord'
 import { PoolBall } from '../components/ui/PoolBall'
 import { skills, story, timeline, tools } from '../content/about'
 import { site } from '../content/site'
-import { isPlaceholderText, useResumeAvailable } from '../lib/hooks'
+import { isPlaceholderText } from '../lib/hooks'
+import { toolLogos } from '../components/ui/tool-logos'
 
 /** Mostra o texto, destacando trechos "[A PREENCHER]" quando os placeholders estão ativos. */
 function Field({ text }: { text: string }) {
@@ -24,8 +25,6 @@ function Field({ text }: { text: string }) {
 }
 
 export function About() {
-  const resume = useResumeAvailable()
-  const visibleTools = tools.filter((t) => site.showPlaceholders || !isPlaceholderText(t))
 
   return (
     <>
@@ -51,7 +50,7 @@ export function About() {
                     <span className="text-[0.65rem] normal-case tracking-normal">site.portrait</span>
                   </span>
                 ) : (
-                  <span className="font-display text-7xl italic">gc</span>
+                  <span className="font-display text-7xl">GC</span>
                 )}
               </div>
             )}
@@ -61,14 +60,9 @@ export function About() {
         <p>
           Estudante de Publicidade e Propaganda na USCS, no 7º semestre, com formação anterior em Análise e Desenvolvimento de Sistemas. Trabalho com marketing, conteúdo e produção visual.
         </p>
-        {(site.socials.linkedin || resume) && (
+        {site.socials.linkedin && (
           <div className="mt-7 flex flex-wrap gap-3">
-            {site.socials.linkedin && (
-              <ExternalButton href={site.socials.linkedin} iconLeft="linkedin" icon="arrowUpRight">LinkedIn</ExternalButton>
-            )}
-            {resume && (
-              <ExternalButton href={site.resumePath} variant="outline" iconLeft="file" icon="arrowUpRight">Ver currículo (PDF)</ExternalButton>
-            )}
+            <ExternalButton href={site.socials.linkedin} iconLeft="linkedin" icon="arrowUpRight">LinkedIn</ExternalButton>
           </div>
         )}
       </PageHeader>
@@ -129,15 +123,20 @@ export function About() {
           ))}
         </div>
 
-        {visibleTools.length > 0 && (
+        {tools.length > 0 && (
           <div className="mt-14">
             <h3 className="label-mono">Ferramentas</h3>
-            <ul className="mt-4 flex flex-wrap gap-2">
-              {visibleTools.map((t) => (
-                <li key={t} className="rounded-full border-[1.5px] border-ink/20 px-4 py-2 text-sm font-medium">
-                  <Field text={t} />
-                </li>
-              ))}
+            <ul className="mt-4 flex flex-wrap gap-3">
+              {tools.map((id) => {
+                const logo = toolLogos[id]
+                return (
+                  <li key={id} title={logo.name} className="grid h-16 w-16 place-items-center rounded-2xl border-[1.5px] border-ink/10 bg-white/70 shadow-[0_2px_0_rgb(10_51_35/0.08)] transition-transform hover:-translate-y-0.5">
+                    <svg viewBox="0 0 24 24" width="30" height="30" fill={logo.color} role="img" aria-label={logo.name}>
+                      <path d={logo.path} />
+                    </svg>
+                  </li>
+                )
+              })}
             </ul>
           </div>
         )}

@@ -1,6 +1,5 @@
 import { headline, intro } from '../../content/about'
 import { site } from '../../content/site'
-import { useResumeAvailable } from '../../lib/hooks'
 import { ButtonLink, buttonClass } from '../ui/Button'
 import { BeadWord } from '../ui/BeadWord'
 import { CutoutWord } from '../ui/CutoutWord'
@@ -10,7 +9,6 @@ import { CameraFrame } from './CameraFrame'
 const words = ['estratégia', 'conteúdo', 'imagem', 'tecnologia']
 
 export function Hero() {
-  const resume = useResumeAvailable()
   return (
     <section className="container-page grid grid-cols-[minmax(0,1fr)] items-center gap-12 pb-16 pt-10 md:pt-16 lg:grid-cols-[1.25fr_1fr] lg:gap-16 lg:pb-24">
       <div>
@@ -23,11 +21,8 @@ export function Hero() {
         <h1 className="mt-6">
           <span className="sr-only">{site.name}</span>
           <span aria-hidden="true" className="block">
-            <CutoutWord word="Geovana" className="text-[min(3rem,12.5vw)] sm:text-[clamp(3rem,10.5vw,6.6rem)]" />
-            <BeadWord
-              word="Cassimiro"
-              className="ml-[0.35em] mt-[0.35em] text-[min(3.6rem,calc((100vw-3rem)/12))] lg:text-[min(3.8rem,calc((100vw-14rem)/20))]"
-            />
+            <CutoutWord word="Geovana" className="text-[clamp(3rem,10.5vw,6.6rem)]" />
+            <BeadWord word="Cassimiro" size="clamp(1.6rem, 8.4vw, 3.9rem)" className="ml-[0.6rem] mt-4" />
           </span>
         </h1>
 
@@ -60,13 +55,6 @@ export function Hero() {
             <li>
               <a href={site.socials.instagram} target="_blank" rel="noopener noreferrer" className="inline-flex min-h-11 items-center gap-2 hover:text-cherry">
                 <Icon name="instagram" /> Instagram<span className="sr-only"> (abre em nova aba)</span>
-              </a>
-            </li>
-          )}
-          {resume && (
-            <li>
-              <a href={site.resumePath} target="_blank" rel="noopener" className="inline-flex min-h-11 items-center gap-2 hover:text-cherry">
-                <Icon name="file" /> Currículo (PDF)<span className="sr-only"> (abre em nova aba)</span>
               </a>
             </li>
           )}
