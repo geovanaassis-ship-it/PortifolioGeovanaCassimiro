@@ -2,6 +2,7 @@ import { headline, intro } from '../../content/about'
 import { site } from '../../content/site'
 import { useResumeAvailable } from '../../lib/hooks'
 import { ButtonLink, buttonClass } from '../ui/Button'
+import { BeadWord } from '../ui/BeadWord'
 import { CutoutWord } from '../ui/CutoutWord'
 import { Icon } from '../ui/Icon'
 import { CameraFrame } from './CameraFrame'
@@ -11,7 +12,7 @@ const words = ['estratégia', 'conteúdo', 'imagem', 'tecnologia']
 export function Hero() {
   const resume = useResumeAvailable()
   return (
-    <section className="container-page grid items-center gap-12 pb-16 pt-10 md:pt-16 lg:grid-cols-[1.25fr_1fr] lg:gap-16 lg:pb-24">
+    <section className="container-page grid grid-cols-[minmax(0,1fr)] items-center gap-12 pb-16 pt-10 md:pt-16 lg:grid-cols-[1.25fr_1fr] lg:gap-16 lg:pb-24">
       <div>
         <p className="label-mono flex flex-wrap items-center gap-x-3 gap-y-1 text-ink/70">
           <span>Publicidade e Propaganda · USCS</span>
@@ -22,10 +23,11 @@ export function Hero() {
         <h1 className="mt-6">
           <span className="sr-only">{site.name}</span>
           <span aria-hidden="true" className="block">
-            <CutoutWord word="Geovana" className="text-[clamp(3rem,10.5vw,6.6rem)]" />
-            <span className="mt-1 block font-display text-[clamp(3.1rem,11vw,7rem)] font-normal italic leading-[0.95] tracking-[-0.03em]">
-              Cassimiro
-            </span>
+            <CutoutWord word="Geovana" className="text-[min(3rem,12.5vw)] sm:text-[clamp(3rem,10.5vw,6.6rem)]" />
+            <BeadWord
+              word="Cassimiro"
+              className="ml-[0.35em] mt-[0.35em] text-[min(3.6rem,calc((100vw-3rem)/12))] lg:text-[min(3.8rem,calc((100vw-14rem)/20))]"
+            />
           </span>
         </h1>
 
