@@ -49,6 +49,7 @@ export const timeline: { period: string; title: string; place: string; note?: st
   { period: 'Em andamento', title: 'Voluntária — fotografia e organização', place: 'Hamburgada do Bem' },
   { period: 'fev/2024 – jul/2025', title: 'Estagiária de Marketing', place: 'Colégio Arbos' },
   { period: 'até jul/2027', title: 'Publicidade e Propaganda', place: 'USCS', note: 'Cursando o 7º semestre' },
+  { period: 'concluído em 2025', title: 'Curso de Fotografia Básica', place: 'Faculdade Cásper Líbero' },
   { period: 'concluído em jan/2023', title: 'Tecnólogo em Análise e Desenvolvimento de Sistemas', place: 'Universidade São Judas Tadeu' },
 ]
 
